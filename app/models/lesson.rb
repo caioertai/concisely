@@ -31,6 +31,12 @@ class Lesson < ApplicationRecord
     end
   end
 
+  def available_hours_params_for(date)
+    available_hours_for(date).map do |hour_options|
+      ["#{hour_options.strftime("%H:%M")}", hour_options]
+    end
+  end
+
   private
 
   def booked_times_for(date)
@@ -51,6 +57,6 @@ class Lesson < ApplicationRecord
   end
 
   def beginning_of_work_day
-    Time.new(2021, 02, 03, 9, 0, 0, 0)
+    Time.current.beginning_of_day + 9.hours
   end
 end
