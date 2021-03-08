@@ -25,12 +25,6 @@ class Lesson < ApplicationRecord
     "$#{self.price}/#{self.duration} min"
   end
 
-  def unavailable_dates_params
-    bookings.pluck(:start_time, :end_time).map do |start_time, end_time|
-      { from: start_time, to: end_time }
-    end
-  end
-
   def available_hours_for(date)
     hours_for_booking.reject do |time|
       booked_times_for(date).include?(time)
